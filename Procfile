@@ -1,3 +1,2 @@
-web: gunicorn katalog.wsgi:application --log-file - --log-level debug
-python manage.py collectstatic --noinput
-manage.py migrate
+release: sh -c 'python manage.py migrate && python manage.py loaddata initial_catalog_data.json'
+web: gunicorn katalog.wsgi --log-file -

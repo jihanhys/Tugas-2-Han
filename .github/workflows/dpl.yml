@@ -18,8 +18,8 @@ jobs:
   Deployment:
     runs-on: ubuntu-latest
     env:
-      HEROKU_API_KEY: ${{ secrets.2b61848b-e7b1-41f3-9c02-741778943268 }}
-      HEROKU_APP_NAME: ${{ secrets.katalog-jihan }}
+      HEROKU_API_KEY: ${{ secrets.HEROKU_API_KEY }}
+      HEROKU_APP_NAME: ${{ secrets.HEROKU_APP_NAME }}
     steps:
     - uses: actions/checkout@v2
     - name: Set up Ruby 2.7
@@ -29,7 +29,7 @@ jobs:
     - name: Install dpl
       run: gem install dpl
     - name: Deploy to Heroku
-      run: dpl --provider=heroku --app=$katalog-jihan --api-key=$2b61848b-e7b1-41f3-9c02-741778943268
+      run: dpl --provider=heroku --app=$HEROKU_APP_NAME --api-key=$HEROKU_API_KEY
     - uses: chrnorm/deployment-action@releases/v1
       name: Create GitHub deployment
       with:
@@ -38,5 +38,5 @@ jobs:
         # Assuming you are not using custom domain on Heroku, the target_url
         # will contain the URL to your application hosted under Heroku's
         # subdomain.
-        target_url: https://${{ secrets.katalog-jihan }}.herokuapp.com
+        target_url: https://${{ secrets.HEROKU_APP_NAME }}.herokuapp.com
         environment: production
